@@ -19,7 +19,7 @@ const Layout: React.FC = ({ children }) => {
           </Link>
         </Flex>
         <Box>
-          <NavLink href="/add">Add</NavLink>
+          <NavLink href="/links/add">Add</NavLink>
         </Box>
       </Flex>
       <Box w="90%" maxW="1080px" margin="0 auto">
