@@ -13,7 +13,7 @@ const read = async (): Promise<string> => {
 }
 
 // WARNING: RUN THIS CLIENT SIDE ONLY
-const ReadFromClipboard: React.FC<{ add: (data: string) => void }> = ({ add }) => {
+const ReadFromClipboard: React.FC<{ add: (data: string) => void; autoAdd: boolean }> = ({ add, autoAdd }) => {
   const [hasPermissions, setHasPermissions] = useState<boolean>(false)
   const [clipboard, setClipboard] = useState<string | undefined>(undefined)
 
@@ -23,11 +23,13 @@ const ReadFromClipboard: React.FC<{ add: (data: string) => void }> = ({ add }) =
 
     try {
       const url = new URL(data)
-      add(url.toString())
+      if (autoAdd) {
+        add(url.toString())
+      }
     } catch (err) {}
 
     setClipboard(data)
-  }, [add])
+  }, [add, autoAdd])
 
   useEffect(() => {
     const interval = setInterval(() => {
