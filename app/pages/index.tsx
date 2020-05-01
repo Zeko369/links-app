@@ -1,25 +1,37 @@
-import { Suspense } from "react"
-import { useQuery, ssrQuery } from "blitz"
-import { Link } from "@prisma/client"
+import React from "react"
+import { ssrQuery } from "blitz"
+import { Link as ILink } from "@prisma/client"
+import { List, ListItem, Heading } from "@chakra-ui/core"
 
 import getLinks from "app/queries/getLinks"
-import Form from "app/components/Form"
 import Layout from "app/layouts"
+import Link from "app/components/Link"
 
-const Links: React.FC<{ links: Link[] }> = ({ links }) => {
+const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
   return (
-    <ul>
+    <List styleType="circle">
       {links.map((link) => (
-        <li key={link.id}>
-          {link.name} -> {link.url}
-        </li>
+        <ListItem key={link.id} py={1}>
+          <Link href={`/links/[id]`} as={`/links/${link.id}`}>
+            {link.name}
+          </Link>{" "}
+          -> <Link href={link.url}>{link.url}</Link>
+        </ListItem>
       ))}
-    </ul>
+      {links.length === 0 && (
+        <Heading>
+          No links...
+          <span role="img" aria-label="cry">
+            😢
+          </span>
+        </Heading>
+      )}
+    </List>
   )
 }
 
 interface ServerProps {
-  links: Link[]
+  links: ILink[]
 }
 
 export const getServerSideProps = async ({ req, res }): Promise<{ props: ServerProps }> => {
