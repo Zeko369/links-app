@@ -1,0 +1,16 @@
+datasource sqlite {
+  provider = "postgres"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --------------------------------------
+model Link {
+  id          Int     @default(autoincrement()) @id
+  url         String
+  name        String
+  description String?
+}
