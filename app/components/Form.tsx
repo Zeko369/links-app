@@ -1,69 +1,59 @@
-import { useReducer } from "react"
+import { useReducer, useState, useEffect, useRef } from "react"
 import { useRouter } from "blitz"
 import { Input, Stack, FormControl, FormLabel, Box, Button } from "@chakra-ui/core"
 
 import createLink from "app/mutations/createLink"
 import capitalize from "app/helpers/capitalize"
+import ReadFromClipboard from "./ReadFromClipboard"
+import { Link } from "@prisma/client"
+import updateLink from "app/mutations/updateLink"
+import reducer, { defaultState, inputs } from "./reducer"
+import deleteLink from "app/mutations/removeLink"
 
-interface State {
-  name: string
-  url: string
-  description?: string
-  isLoading: boolean
-  error?: any
-}
-
-const defaultState: State = {
-  name: "",
-  url: "",
-  isLoading: false,
-}
-
-type ActionName = "name" | "url" | "description"
-type Action =
-  | { type: ActionName; payload: string }
-  | { type: "loading"; payload: boolean }
-  | { type: "error"; payload: any }
-
-const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case "name":
-      return { ...state, name: action.payload }
-    case "url":
-      return { ...state, url: action.payload }
-    case "description":
-      return { ...state, description: action.payload }
-    case "loading":
-      return { ...state, isLoading: action.payload }
-    case "error":
-      return { ...state, error: action.payload }
-    default:
-      return state
-  }
-}
-
-const inputs: { name: ActionName; required: boolean }[] = [
-  { name: "url", required: true },
-  { name: "name", required: true },
-  { name: "description", required: false },
-]
-
-const Form: React.FC = () => {
-  const [state, dispatch] = useReducer(reducer, defaultState)
+const Form: React.FC<{ link?: Link }> = ({ link }) => {
+  const [state, dispatch] = useReducer(reducer, { ...defaultState, ...link })
+  const [showClipboard, setShowClipboard] = useState<boolean>(true)
   const router = useRouter()
+  const nameRef = useRef(null)
+
+  const update = state.id !== undefined
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch({ type: "loading", payload: true })
     const data = { ...state, isLoading: undefined }
     try {
-      await createLink(data)
+      if (update) {
+        await updateLink({ where: { id: state.id }, data })
+      } else {
+        await createLink(data)
+      }
       router.push("/")
-      dispatch({ type: "loading", payload: true })
     } catch (err) {
       dispatch({ type: "error", payload: err })
     }
   }
+
+  const add = (url: string) => {
+    dispatch({ type: "url", payload: url })
+    setShowClipboard(false)
+    nameRef.current.focus()
+  }
+
+  const remove = async () => {
+    if (window.confirm("Are you sure you want to delete this link")) {
+      await deleteLink({ where: { id: state.id } })
+      router.push("/")
+    }
+  }
+
+  useEffect(() => {
+    if (state.url.length > 0) {
+      setShowClipboard(false)
+    } else {
+      setShowClipboard(true)
+    }
+  }, [state])
 
   return (
     <form onSubmit={onSubmit}>
@@ -77,13 +67,22 @@ const Form: React.FC = () => {
                 dispatch({ type: input.name, payload: e.target.value })
               }
               isRequired={input.required}
+              ref={input.name === "name" ? nameRef : null}
             />
           </FormControl>
         ))}
       </Stack>
+      {state.id && (
+        <Button mt={4} variantColor="red" float="right" onClick={remove}>
+          Delete
+        </Button>
+      )}
       <Button mt={4} variantColor="teal" isLoading={state.isLoading} type="submit">
-        Add
+        {state.id ? "Update" : "Add"}
       </Button>
+      {typeof window !== "undefined" && (showClipboard || update) && (
+        <ReadFromClipboard add={add} autoAdd={!update} />
+      )}
     </form>
   )
 }
