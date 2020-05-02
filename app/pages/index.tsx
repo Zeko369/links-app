@@ -1,11 +1,12 @@
-import React from "react"
-import { ssrQuery } from "blitz"
+import React, { useEffect } from "react"
+import { ssrQuery, useRouter } from "blitz"
 import { Link as ILink } from "@prisma/client"
 import { List, ListItem, Heading, Link as ChakraLink } from "@chakra-ui/core"
 
 import getLinks from "app/queries/getLinks"
 import Layout from "app/layouts"
 import Link from "app/components/Link"
+import useKeyPress from "app/hooks/useKeyPress"
 
 const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
   return (
@@ -40,6 +41,15 @@ export const getServerSideProps = async ({ req, res }): Promise<{ props: ServerP
 }
 
 const Home: React.FC<ServerProps> = ({ links }) => {
+  const router = useRouter()
+  const keyPress = useKeyPress("n")
+
+  useEffect(() => {
+    if (keyPress) {
+      router.push("/links/add")
+    }
+  }, [keyPress, router])
+
   return (
     <Layout>
       <Links links={links} />
