@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
 
   let { url } = req.body
 
-  res.status(200).json(getTitle(url))
+  res.status(200).send(getTitle(url))
 }
 
 export default handler
