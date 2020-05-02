@@ -40,6 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     const link = await db.link.create({ data: { name, url } })
     res.status(200).json(link)
   } catch (err) {
+    console.error(err)
     res.status(500).json({ error: "create" })
   }
 }
