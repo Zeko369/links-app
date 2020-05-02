@@ -32,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
     res.status(400).json({ error: "no-url" })
   }
 
-  if (name?.length === 0) {
+  if (!name || name.length === 0) {
     name = getTitle(url)
   }
 
