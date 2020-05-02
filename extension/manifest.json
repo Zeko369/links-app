@@ -14,6 +14,16 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
+  "commands": {
+    "save-this-link": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+S",
+        "mac": "Command+Ctrl+S",
+        "linux": "Ctrl+Shift+S"
+      },
+      "description": "Save this link"
+    }
+  },
   "manifest_version": 2,
-  "permissions": ["activeTab"]
+  "permissions": ["activeTab", "tabs"]
 }
