@@ -5,6 +5,7 @@ import { ssrQuery, useRouter } from "blitz"
 import getLink from "app/queries/getLink"
 import useKeyPress from "app/hooks/useKeyPress"
 import { useEffect } from "react"
+import { Link as ChakraLink } from "@chakra-ui/core"
 
 interface ServerProps {
   link: Link
@@ -27,6 +28,9 @@ const Edit: React.FC<ServerProps> = ({ link }) => {
 
   return (
     <Layout>
+      <ChakraLink href={link.url} target="_blank">
+        Go to
+      </ChakraLink>
       <Form link={link} />
     </Layout>
   )

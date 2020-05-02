@@ -16,7 +16,10 @@ const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
           <Link href={`/links/[id]`} as={`/links/${link.id}`}>
             {link.name}
           </Link>{" "}
-          -> <ChakraLink href={link.url}>{link.url}</ChakraLink>
+          ->{" "}
+          <ChakraLink href={link.url} target="_blank">
+            {link.url}
+          </ChakraLink>
         </ListItem>
       ))}
       {links.length === 0 && (
