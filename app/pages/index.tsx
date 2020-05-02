@@ -1,7 +1,7 @@
 import React from "react"
 import { ssrQuery } from "blitz"
 import { Link as ILink } from "@prisma/client"
-import { List, ListItem, Heading } from "@chakra-ui/core"
+import { List, ListItem, Heading, Link as ChakraLink } from "@chakra-ui/core"
 
 import getLinks from "app/queries/getLinks"
 import Layout from "app/layouts"
@@ -15,7 +15,7 @@ const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
           <Link href={`/links/[id]`} as={`/links/${link.id}`}>
             {link.name}
           </Link>{" "}
-          -> <Link href={link.url}>{link.url}</Link>
+          -> <ChakraLink href={link.url}>{link.url}</ChakraLink>
         </ListItem>
       ))}
       {links.length === 0 && (
