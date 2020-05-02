@@ -1,6 +1,6 @@
 import { useReducer, useState, useEffect, useRef } from "react"
 import { useRouter } from "blitz"
-import { Input, Stack, FormControl, FormLabel, Box, Button } from "@chakra-ui/core"
+import { Input, Stack, FormControl, FormLabel, Box, Button, Flex } from "@chakra-ui/core"
 
 import createLink from "app/mutations/createLink"
 import capitalize from "app/helpers/capitalize"
@@ -9,10 +9,26 @@ import { Link } from "@prisma/client"
 import updateLink from "app/mutations/updateLink"
 import reducer, { defaultState, inputs } from "./reducer"
 import deleteLink from "app/mutations/removeLink"
+import getTitle from "utils/titleHelper"
+
+const query = async (state, update, dispatch, router) => {
+  const data = { ...state, isLoading: undefined }
+  try {
+    if (update) {
+      await updateLink({ where: { id: state.id }, data })
+    } else {
+      await createLink(data)
+    }
+    router.push("/")
+  } catch (err) {
+    dispatch({ type: "error", payload: err })
+  }
+}
 
 const Form: React.FC<{ link?: Link }> = ({ link }) => {
   const [state, dispatch] = useReducer(reducer, { ...defaultState, ...link })
   const [showClipboard, setShowClipboard] = useState<boolean>(true)
+  const [suggested, setSuggested] = useState<string>("")
   const router = useRouter()
   const nameRef = useRef(null)
 
@@ -21,23 +37,16 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch({ type: "loading", payload: true })
-    const data = { ...state, isLoading: undefined }
-    try {
-      if (update) {
-        await updateLink({ where: { id: state.id }, data })
-      } else {
-        await createLink(data)
-      }
-      router.push("/")
-    } catch (err) {
-      dispatch({ type: "error", payload: err })
-    }
+    await query(state, update, dispatch, router)
   }
 
   const add = (url: string) => {
     dispatch({ type: "url", payload: url })
     setShowClipboard(false)
     nameRef.current.focus()
+    // setTimeout(() => {
+    //   nameRef.current.select()
+    // }, 50)
   }
 
   const remove = async () => {
@@ -47,9 +56,17 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
     }
   }
 
+  const addSuggested = async () => {
+    await query({ ...state, name: suggested }, update, dispatch, router)
+  }
+
   useEffect(() => {
     if (state.url.length > 0) {
       setShowClipboard(false)
+      if (state.name.length === 0) {
+        setSuggested(getTitle(state.url))
+        // dispatch({ type: "name", payload: getTitle(state.url) })
+      }
     } else {
       setShowClipboard(true)
     }
@@ -63,6 +80,7 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
             <FormLabel>{capitalize(input.name)}</FormLabel>
             <Input
               value={state[input.name]}
+              placeholder={input.name === "name" ? suggested || "name" : input.name}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 dispatch({ type: input.name, payload: e.target.value })
               }
@@ -73,13 +91,20 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
         ))}
       </Stack>
       {state.id && (
-        <Button mt={4} variantColor="red" float="right" onClick={remove}>
+        <Button m={4} variantColor="red" float="right" onClick={remove}>
           Delete
         </Button>
       )}
-      <Button mt={4} variantColor="teal" isLoading={state.isLoading} type="submit">
+      <Button m={4} ml={0} variantColor="teal" isLoading={state.isLoading} type="submit">
         {state.id ? "Update" : "Add"}
       </Button>
+      {suggested && (
+        <>
+          <Button m={4} variantColor="green" onClick={addSuggested}>
+            Add suggested
+          </Button>
+        </>
+      )}
       {typeof window !== "undefined" && (showClipboard || update) && (
         <ReadFromClipboard add={add} autoAdd={!update} />
       )}
