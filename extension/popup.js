@@ -5,6 +5,12 @@
 
 let changeColor = document.querySelector("form")
 
+document.querySelector("#link").addEventListener("click", () => {
+  chrome.tabs.create({ url: "https://links.zekan.tk" }, () => {
+    console.log("done")
+  })
+})
+
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   if (tabs.length === 1) {
     const tab = tabs[0]
