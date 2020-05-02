@@ -1,4 +1,4 @@
-import { useReducer, useState, useEffect, useRef } from "react"
+import { useReducer, useState, useEffect, useRef, useCallback } from "react"
 import { useRouter } from "blitz"
 import { Input, Stack, FormControl, FormLabel, Box, Button, Flex } from "@chakra-ui/core"
 
@@ -30,7 +30,7 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
   const [showClipboard, setShowClipboard] = useState<boolean>(true)
   const [suggested, setSuggested] = useState<string>("")
   const router = useRouter()
-  const nameRef = useRef(null)
+  const nameRef = useRef<HTMLInputElement | null>(null)
 
   const update = state.id !== undefined
 
@@ -56,9 +56,26 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
     }
   }
 
-  const addSuggested = async () => {
+  const addSuggested = useCallback(async () => {
     await query({ ...state, name: suggested }, update, dispatch, router)
-  }
+  }, [router, state, suggested, update])
+
+  useEffect(() => {
+    const listener = (event: KeyboardEvent) => {
+      if (event.keyCode === 13 && event.shiftKey) {
+        event.stopPropagation()
+        addSuggested()
+      }
+    }
+
+    const input = nameRef.current
+
+    if (input) {
+      input.addEventListener("keypress", listener)
+
+      return () => input.removeEventListener("keypress", listener)
+    }
+  }, [addSuggested])
 
   useEffect(() => {
     if (state.url.length > 0) {
