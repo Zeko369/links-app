@@ -13,11 +13,11 @@ const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
     <List styleType="circle">
       {links.map((link) => (
         <ListItem key={link.id} py={1}>
-          <Link href={`/links/[id]`} as={`/links/${link.id}`}>
+          <Link href={`/links/[id]`} as={`/links/${link.id}`} wordBreak="break-all">
             {link.name}
           </Link>{" "}
           ->{" "}
-          <ChakraLink href={link.url} target="_blank">
+          <ChakraLink href={link.url} target="_blank" wordBreak="break-all">
             {link.url}
           </ChakraLink>
         </ListItem>
