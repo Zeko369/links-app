@@ -2,24 +2,10 @@ import db from "db"
 import { NextApiRequest, NextApiResponse } from "next"
 import getTitle from "utils/titleHelper"
 
-import Cors from "cors"
-
-const cors = Cors({ methods: ["GET", "POST"] })
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
+import cors from "app/lib/cors"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  await runMiddleware(req, res, cors)
+  await cors(req, res)
 
   if (req.method !== "POST") {
     res.status(404).send("Nothing to see here")
