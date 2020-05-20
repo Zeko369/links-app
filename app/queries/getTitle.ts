@@ -1,5 +1,6 @@
-import capitalize from "app/helpers/capitalize"
+import fetch from "isomorphic-fetch"
 import { load } from "cheerio"
+import capitalize from "app/helpers/capitalize"
 
 const getTitle = async (link: string): Promise<string> => {
   let url: URL
