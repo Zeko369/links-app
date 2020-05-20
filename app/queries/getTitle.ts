@@ -1,6 +1,7 @@
 import capitalize from "app/helpers/capitalize"
+import { load } from "cheerio"
 
-const getTitle = (link: string): string => {
+const getTitle = async (link: string): Promise<string> => {
   let url: URL
   try {
     url = new URL(link)
@@ -35,6 +36,25 @@ const getTitle = (link: string): string => {
       }
       case "youtube.com":
         // TODO: add youtube resolver
+
+        if (url.pathname.split("/").reverse()[0] === "watch") {
+          const response = await fetch(`https://www.youtube.com/watch?v=${url.search.slice(3)}`)
+          const data = await response.text()
+
+          const root = load(data)
+
+          const output = {
+            title: root('meta[property="og:title"]').attr("content"),
+            channel: root(
+              ".video-list-item.related-list-item.show-video-time.related-list-item-compact-video .stat.attribution"
+            )
+              .first()
+              .text(),
+          }
+
+          return `YOUTUBE:(${output.channel} -> ${output.title})`
+        }
+
         return `YOUTUBE:${url.search.slice(3)}`
       case "google.com": {
         try {

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import getTitle from "utils/titleHelper"
 import cors from "app/lib/cors"
+import getTitle from "app/queries/getTitle"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   await cors(req, res)

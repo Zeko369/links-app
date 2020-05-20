@@ -1,5 +1,5 @@
 import { useReducer, useState, useEffect, useRef, useCallback } from "react"
-import { useRouter } from "blitz"
+import { useRouter, useQuery } from "blitz"
 import { Input, Stack, FormControl, FormLabel, Box, Button, Flex } from "@chakra-ui/core"
 
 import createLink from "app/mutations/createLink"
@@ -9,7 +9,7 @@ import { Link } from "@prisma/client"
 import updateLink from "app/mutations/updateLink"
 import reducer, { defaultState, inputs } from "./reducer"
 import deleteLink from "app/mutations/removeLink"
-import getTitle from "utils/titleHelper"
+import getTitle from "app/queries/getTitle"
 
 const query = async (state, update, dispatch, router) => {
   const data = { ...state, isLoading: undefined }
@@ -81,7 +81,9 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
     if (state.url.length > 0) {
       setShowClipboard(false)
       if (state.name.length === 0) {
-        setSuggested(getTitle(state.url))
+        getTitle(state.url).then((suggestedUrl) => {
+          setSuggested(suggestedUrl)
+        })
         // dispatch({ type: "name", payload: getTitle(state.url) })
       }
     } else {
