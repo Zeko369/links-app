@@ -19,6 +19,10 @@ const Layout: React.FC = ({ children }) => {
           </Link>
         </Flex>
         <Box>
+          <NavLink href="/">Links</NavLink>
+          <NavLink href="/categories">Categories</NavLink>
+        </Box>
+        <Box>
           <NavLink href="/links/add">Add</NavLink>
         </Box>
       </Flex>

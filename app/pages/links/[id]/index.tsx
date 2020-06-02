@@ -1,4 +1,3 @@
-import Layout from "app/layouts"
 import Form from "app/components/Form"
 import { Link } from "@prisma/client"
 import { ssrQuery, useRouter } from "blitz"
@@ -27,12 +26,12 @@ const Edit: React.FC<ServerProps> = ({ link }) => {
   }, [router, esc])
 
   return (
-    <Layout>
+    <>
       <ChakraLink href={link.url} target="_blank">
         Go to
       </ChakraLink>
       <Form link={link} />
-    </Layout>
+    </>
   )
 }
 

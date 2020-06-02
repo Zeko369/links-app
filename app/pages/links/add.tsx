@@ -1,5 +1,4 @@
 import Form from "app/components/Form"
-import Layout from "app/layouts"
 import { useRouter } from "blitz"
 import useKeyPress from "app/hooks/useKeyPress"
 import { useEffect } from "react"
@@ -14,11 +13,7 @@ const Add: React.FC = () => {
     }
   }, [router, esc])
 
-  return (
-    <Layout>
-      <Form />
-    </Layout>
-  )
+  return <Form />
 }
 
 export default Add

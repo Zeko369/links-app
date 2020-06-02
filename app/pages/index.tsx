@@ -53,11 +53,7 @@ const Home: React.FC<ServerProps> = ({ links }) => {
     }
   }, [keyPress, router])
 
-  return (
-    <Layout>
-      <Links links={links} />
-    </Layout>
-  )
+  return <Links links={links} />
 }
 
 export default Home
