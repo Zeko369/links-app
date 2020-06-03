@@ -4,7 +4,8 @@ import { Category as ICategory } from "@prisma/client"
 import { List, ListItem, Heading } from "@chakra-ui/core"
 
 import getCategories from "app/queries/getCategories"
-// import Link from "app/components/Link"
+import TopRow from "app/components/TopRow"
+import { LinkButton } from "app/components/Link"
 
 interface ServerProps {
   categories: ICategory[]
@@ -17,22 +18,32 @@ export const getServerSideProps = async ({ req, res }): Promise<{ props: ServerP
 
 const Categories: React.FC<ServerProps> = ({ categories }) => {
   return (
-    <List styleType="circle">
-      {categories.length > 0 ? (
-        categories.map((category) => (
-          <ListItem key={category.id} py={1}>
-            {category.name}
-          </ListItem>
-        ))
-      ) : (
-        <Heading>
-          No categories...
-          <span role="img" aria-label="cry">
-            😢
-          </span>
-        </Heading>
-      )}
-    </List>
+    <>
+      <TopRow
+        title="Categories"
+        right={[
+          <LinkButton href="/categories/new" backgroundColor="blue.400">
+            New
+          </LinkButton>,
+        ]}
+      />
+      <List styleType="circle">
+        {categories.length > 0 ? (
+          categories.map((category) => (
+            <ListItem key={category.id} py={1}>
+              {category.name}
+            </ListItem>
+          ))
+        ) : (
+          <Heading>
+            No categories...
+            <span role="img" aria-label="cry">
+              😢
+            </span>
+          </Heading>
+        )}
+      </List>
+    </>
   )
 }
 
