@@ -1,6 +1,6 @@
 import { useReducer, useState, useEffect, useRef, useCallback } from "react"
-import { useRouter, useQuery } from "blitz"
-import { Input, Stack, FormControl, FormLabel, Box, Button, Flex } from "@chakra-ui/core"
+import { useRouter } from "blitz"
+import { Input, Stack, FormControl, FormLabel, Button } from "@chakra-ui/core"
 
 import createLink from "app/mutations/createLink"
 import capitalize from "app/helpers/capitalize"
@@ -44,9 +44,6 @@ const Form: React.FC<{ link?: Link }> = ({ link }) => {
     dispatch({ type: "url", payload: url })
     setShowClipboard(false)
     nameRef.current.focus()
-    // setTimeout(() => {
-    //   nameRef.current.select()
-    // }, 50)
   }
 
   const remove = async () => {
