@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "LinksApp",
-      script: "yarn",
-      args: "start --production",
+      script: "./scripts/start.sh",
+      args: "",
       instances: 1,
       autorestart: true,
       watch: false,
