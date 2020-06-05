@@ -16,7 +16,7 @@ const Links: React.FC<{ links: ILink[] }> = ({ links }) => {
           <Link href={`/links/[id]`} as={`/links/${link.id}`} wordBreak="break-all">
             {link.name}
           </Link>{" "}
-          ->{" "}
+          -&gt;{" "}
           <ChakraLink href={link.url} target="_blank" wordBreak="break-all">
             {link.url}
           </ChakraLink>
