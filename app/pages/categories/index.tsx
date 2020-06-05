@@ -5,7 +5,7 @@ import { List, ListItem, Heading } from "@chakra-ui/core"
 
 import getCategories from "app/queries/getCategories"
 import TopRow from "app/components/TopRow"
-import { LinkButton } from "app/components/Link"
+import Link, { LinkButton } from "app/components/Link"
 
 interface ServerProps {
   categories: ICategory[]
@@ -31,7 +31,12 @@ const Categories: React.FC<ServerProps> = ({ categories }) => {
         {categories.length > 0 ? (
           categories.map((category) => (
             <ListItem key={category.id} py={1}>
-              {category.name}
+              <Link href="/categories/[id]" as={`/categories/${category.id}`}>
+                {category.name}
+              </Link>{" "}
+              <Link href="/categories/[id]/edit" as={`/categories/${category.id}/edit`}>
+                Edit
+              </Link>
             </ListItem>
           ))
         ) : (
