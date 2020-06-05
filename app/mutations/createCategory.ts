@@ -1,10 +1,6 @@
 import db from "db"
 
-export interface CreateCategoryProps {
-  name: string
-}
-
-const createCategory = async (data: CreateCategoryProps) => {
+const createCategory = async (data: { name: string }) => {
   const category = await db.category.create({ data })
   return category
 }

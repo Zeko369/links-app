@@ -2,7 +2,11 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import { FormLabel, FormControl, Input, Button } from "@chakra-ui/core"
 import { useRouter } from "blitz"
-import createCategory, { CreateCategoryProps } from "app/mutations/createCategory"
+import createCategory from "app/mutations/createCategory"
+
+export interface CreateCategoryProps {
+  name: string
+}
 
 const NewCategory: React.FC = () => {
   const { handleSubmit, register, formState } = useForm()
