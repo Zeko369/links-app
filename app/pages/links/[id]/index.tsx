@@ -18,7 +18,7 @@ const EditComponent: React.FC = () => {
 
   return (
     <>
-      <ChakraLink target="_blank" as={Link} href="/">
+      <ChakraLink href={link.url} target="_blank">
         Go to
       </ChakraLink>
       <Form link={link} />
