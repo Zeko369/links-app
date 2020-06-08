@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse): Promise<void>
   }
 
   if (!name || name.length === 0) {
-    name = getTitle(url)
+    name = await getTitle(url)
   }
 
   try {
