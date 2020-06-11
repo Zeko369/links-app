@@ -4,4 +4,4 @@ export type LinkWithCategories = Link & {
   categories: Category[]
 }
 
-export type Refetch<T> = (params: { force?: boolean; throwOnError?: boolean }) => Promise<T>
+export type Refetch<T> = (params?: { force?: boolean; throwOnError?: boolean }) => Promise<T>

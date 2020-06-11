@@ -45,8 +45,8 @@ const Categories: React.FC<CategoryProps> = ({ link, refetch }) => {
   return (
     <Box mt={3}>
       <FormControl>
-        <FormLabel htmlFor="categoryselect">Category</FormLabel>
-        <Select id="categoryselect" multiple height={100} onChange={onChange} isDisabled={loading}>
+        <FormLabel htmlFor="catSelect">Category</FormLabel>
+        <Select id="catSelect" multiple height={100} onChange={onChange} isDisabled={loading}>
           {categories.map((category) => (
             <option key={category.id} value={category.id} selected={selected.includes(category.id)}>
               {category.name}
