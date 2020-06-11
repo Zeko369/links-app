@@ -7,8 +7,7 @@ import { Link as ChakraLink, Select, Box, FormControl, FormLabel, Button } from 
 import ErrorBoundary from "app/components/ErrorBoundary"
 import getCategories from "app/queries/getCategories"
 import updateLink from "app/mutations/updateLink"
-
-import { LinkWithCategories, Refetch } from "./index.d"
+import { LinkWithCategories, Refetch } from "app/ts/links"
 
 // export const getServerSideProps = async ({ params, req, res }): Promise<{ props: ServerProps }> => {
 //   const link = await ssrQuery(getLink, { where: { id: parseInt(params.id) } }, { req, res })
