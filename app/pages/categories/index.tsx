@@ -21,11 +21,13 @@ const Categories: React.FC<ServerProps> = ({ categories }) => {
     <>
       <TopRow
         title="Categories"
-        right={[
-          <LinkButton href="/categories/new" backgroundColor="blue.400">
-            New
-          </LinkButton>,
-        ]}
+        right={
+          <>
+            <LinkButton href="/categories/new" backgroundColor="blue.400">
+              New
+            </LinkButton>
+          </>
+        }
       />
       <List styleType="circle">
         {categories.length > 0 ? (
