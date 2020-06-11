@@ -1,5 +1,5 @@
 import Form from "app/components/Form"
-import { useRouter, useQuery, Link } from "blitz"
+import { useRouter, useQuery } from "blitz"
 import getLink from "app/queries/getLink"
 import useKeyPress from "app/hooks/useKeyPress"
 import { useEffect, Suspense } from "react"
