@@ -4,11 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev:compiler": "nodemon compiler.js",
-    "dev": "node compiler.js",
-    "build": "tsc && node build.js"
+    "dev:compiler": "nodemon tools/compiler.js",
+    "dev": "node tools/compiler.js",
+    "build": "tsc && node tools/build.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dom-chef": "4.1.0"
+  },
   "devDependencies": {
     "@types/chrome": "0.0.106",
     "nodemon": "2.0.4",
