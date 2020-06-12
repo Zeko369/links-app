@@ -1,13 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Links app",
   "version": "1.0",
-  "description": "Build an Extension!",
-  // "content_scripts": [
-  //   {
-  //     "matches": ["<all_urls>"],
-  //     "js": ["content.js"]
-  //   }
-  // ],
+  "description": "Save links for later",
   "background": {
     "scripts": ["background.js"]
   },

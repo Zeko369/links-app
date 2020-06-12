@@ -28,7 +28,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       .then((res) => res.text())
       .then((data) => {
         if (data.length > 0) {
-          document.querySelector("input#links-app-name").placeholder = data
+          document.querySelector("input#links-app-name").placeholder = data + "HERE"
         }
       })
       .catch((err) => {
