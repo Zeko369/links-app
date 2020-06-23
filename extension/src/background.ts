@@ -1,5 +1,3 @@
-console.log("here")
-
 const createNewLink = (url: string, name: string | undefined, tabId: number | undefined) => {
   const options: RequestInit = {
     method: "POST",
@@ -22,7 +20,7 @@ chrome.runtime.onMessage.addListener((message) => {
 })
 
 chrome.commands.onCommand.addListener((command) => {
-  if (command === "save-this-link") {
+  if (command === "save") {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs.length === 1) {
         const tab = tabs[0]
