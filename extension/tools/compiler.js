@@ -15,8 +15,10 @@ watch.on("success", () => {
       console.error(`Error building`, err)
     })
 })
+;(async () => {
+  await fs.promises.rmdir(join(__dirname, "../dist"), { recursive: true })
+  const files = await fs.promises.readdir(join(__dirname, "../src"))
 
-fs.promises.readdir(join(__dirname, "../src")).then((files) => {
   files.filter(exclude).forEach((file) => {
     const src = join(__dirname, "../src", file)
     const dist = join(__dirname, "../dist", file)
@@ -28,10 +30,10 @@ fs.promises.readdir(join(__dirname, "../src")).then((files) => {
         .catch(console.error)
     })
   })
-})
 
-try {
-  watch.start("--project", ".")
-} catch (e) {
-  watch.kill()
-}
+  try {
+    watch.start("--project", ".")
+  } catch (e) {
+    watch.kill()
+  }
+})()
