@@ -2,6 +2,8 @@ import React from "react"
 import { ssrQuery } from "blitz"
 import { Category, Link } from "@prisma/client"
 import getCategory from "app/queries/getCategory"
+import { Heading, List, ListItem } from "@chakra-ui/core"
+import RouterLink from "app/components/Link"
 
 interface ServerProps {
   category: Category & {
@@ -17,10 +19,16 @@ export const getServerSideProps = async ({ params, req, res }): Promise<{ props:
 const ShowCategory: React.FC<ServerProps> = ({ category }) => {
   return (
     <>
-      <h1>Show {category.id}</h1>
-      {category.links.map((link) => (
-        <h3>{link.name}</h3>
-      ))}
+      <Heading>{category.name}</Heading>
+      <List mt={3} styleType="disc">
+        {category.links.map((link) => (
+          <ListItem>
+            <RouterLink href={"/links/[id]"} as={`/links/${link.id}`}>
+              {link.name}
+            </RouterLink>
+          </ListItem>
+        ))}
+      </List>
     </>
   )
 }
