@@ -1,8 +1,9 @@
 import React from "react"
 import { ssrQuery } from "blitz"
 import { Category, Link } from "@prisma/client"
-import getCategory from "app/queries/getCategory"
 import { Heading, List, ListItem } from "@chakra-ui/core"
+
+import getCategory from "app/queries/getCategory"
 import RouterLink from "app/components/Link"
 
 interface ServerProps {

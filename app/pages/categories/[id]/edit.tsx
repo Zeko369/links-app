@@ -1,9 +1,10 @@
 import React from "react"
 import { useRouter, ssrQuery } from "blitz"
+import { Category } from "@prisma/client"
+import { Heading } from "@chakra-ui/core"
+
 import updateCategory from "app/mutations/updateCategory"
 import CategoryForm from "app/components/categories/Form"
-import { Heading } from "@chakra-ui/core"
-import { Category } from "@prisma/client"
 import getCategory from "app/queries/getCategory"
 
 interface ServerProps {

@@ -1,15 +1,15 @@
 import { useReducer, useState, useEffect, useRef, useCallback } from "react"
-import { useRouter } from "blitz"
 import { Input, Stack, FormControl, FormLabel, Button } from "@chakra-ui/core"
+import { useRouter } from "blitz"
+import { Link } from "@prisma/client"
 
 import createLink from "app/mutations/createLink"
 import capitalize from "app/helpers/capitalize"
 import ReadFromClipboard from "./ReadFromClipboard"
-import { Link } from "@prisma/client"
 import updateLink from "app/mutations/updateLink"
-import reducer, { defaultState, inputs } from "./reducer"
 import deleteLink from "app/mutations/removeLink"
 import getTitle from "app/queries/getTitle"
+import reducer, { defaultState, inputs } from "./reducer"
 
 const query = async (state, update, dispatch, router) => {
   const data = { ...state, isLoading: undefined }
