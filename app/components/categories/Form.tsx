@@ -11,13 +11,13 @@ interface CategoryFormProps {
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({ onSubmit, initValues = {}, text = "Submit" }) => {
-  const { handleSubmit, register, formState } = useForm()
+  const { handleSubmit, register, formState } = useForm({ defaultValues: { ...initValues } })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <FormLabel htmlFor="name">Category name</FormLabel>
-        <Input name="name" placeholder="name" ref={register} defaultValue={initValues.name} />
+        <Input name="name" placeholder="name" ref={register} />
       </FormControl>
       <Button mt={4} variantColor="teal" isLoading={formState.isSubmitting} type="submit">
         {text}
