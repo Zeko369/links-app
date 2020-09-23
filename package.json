@@ -2,6 +2,7 @@
   "name": "links-app",
   "version": "1.0.0",
   "scripts": {
+    "dev": "blitz start",
     "start": "blitz start",
     "build": "blitz db migrate && blitz build",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
@@ -30,8 +31,8 @@
     "@chakra-ui/core": "0.7.0",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
-    "@prisma/cli": "2.0.0-beta.4",
-    "@prisma/client": "2.0.0-beta.4",
+    "@prisma/cli": "2.7.1",
+    "@prisma/client": "2.7.1",
     "blitz": "^0.15.3",
     "chakra-next-link": "0.0.3",
     "cheerio": "1.0.0-rc.3",
