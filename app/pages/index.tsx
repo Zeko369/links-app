@@ -28,7 +28,7 @@ const Links: React.FC = () => {
     if (debouncedSearchVal !== q) {
       router.push({
         pathname: "/",
-        query: { page: Number(page), q: debouncedSearchVal },
+        query: { page: 0, q: debouncedSearchVal },
       })
     }
   }, [debouncedSearchVal, page, router, q])
