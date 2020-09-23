@@ -2,10 +2,10 @@ import React from "react"
 import { ssrQuery } from "blitz"
 import { Category as ICategory } from "@prisma/client"
 import { List, ListItem, Heading } from "@chakra-ui/core"
+import { Link, LinkButton } from "chakra-next-link"
 
 import getCategories from "app/queries/getCategories"
 import TopRow from "app/components/TopRow"
-import Link, { LinkButton } from "app/components/Link"
 
 interface ServerProps {
   categories: ICategory[]

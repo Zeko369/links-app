@@ -1,14 +1,14 @@
 import React from "react"
 import { ssrQuery } from "blitz"
-import { Category, Link } from "@prisma/client"
+import { Category, Link as LinkDB } from "@prisma/client"
 import { Heading, List, ListItem } from "@chakra-ui/core"
 
 import getCategory from "app/queries/getCategory"
-import RouterLink from "app/components/Link"
+import { Link } from "chakra-next-link"
 
 interface ServerProps {
   category: Category & {
-    links: Link[]
+    links: LinkDB[]
   }
 }
 
@@ -24,9 +24,9 @@ const ShowCategory: React.FC<ServerProps> = ({ category }) => {
       <List mt={3} styleType="disc">
         {category.links.map((link) => (
           <ListItem>
-            <RouterLink href={"/links/[id]"} as={`/links/${link.id}`}>
+            <Link href={"/links/[id]"} as={`/links/${link.id}`}>
               {link.name}
-            </RouterLink>
+            </Link>
           </ListItem>
         ))}
       </List>

@@ -1,6 +1,7 @@
 import { useRouter, useQuery } from "blitz"
 import { useEffect, Suspense, useState } from "react"
-import { Link as ChakraLink, Select, Box, FormControl, FormLabel, Button } from "@chakra-ui/core"
+import { Select, Box, FormControl, FormLabel, Button } from "@chakra-ui/core"
+import { Link } from "chakra-next-link"
 import Form from "app/components/Form"
 import getLink from "app/queries/getLink"
 import useKeyPress from "app/hooks/useKeyPress"
@@ -70,9 +71,9 @@ const EditComponent: React.FC = () => {
 
   return (
     <>
-      <ChakraLink href={link.url} target="_blank">
+      <Link href={link.url} target="_blank" isExternal>
         Go to
-      </ChakraLink>
+      </Link>
       <Form link={link} />
       <Categories link={link} refetch={refetch} />
     </>

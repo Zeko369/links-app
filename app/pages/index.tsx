@@ -2,9 +2,9 @@ import React, { useEffect } from "react"
 import { ssrQuery, useRouter } from "blitz"
 import { Link as ILink } from "@prisma/client"
 import { List, ListItem, Heading, Link as ChakraLink } from "@chakra-ui/core"
+import { Link } from "chakra-next-link"
 
 import getLinks from "app/queries/getLinks"
-import Link from "app/components/Link"
 import useKeyPress from "app/hooks/useKeyPress"
 
 const Links: React.FC<{ links: ILink[] }> = ({ links }) => {

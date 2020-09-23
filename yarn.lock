@@ -2851,6 +2851,11 @@ cardinal@^2.1.1:
     ansicolors "~0.3.2"
     redeyed "~2.1.0"
 
+chakra-next-link@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/chakra-next-link/-/chakra-next-link-0.0.3.tgz#c4868c947d16f65b3012ff882bc21236cf8b0eb5"
+  integrity sha512-cKkGaF3MMwEFKQQTTxB5n4wyCzwxE+Gu33/Sx9QunsQCWNXa4ZXrFKKlCwFk+ZVKRLpoBuYlzVFUhdOEy0S6yg==
+
 chalk@4.0.0, chalk@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
