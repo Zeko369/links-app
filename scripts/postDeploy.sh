@@ -8,4 +8,6 @@ cp ~/links-app/.env .env
 yarn
 yarn build
 
+git checkout yarn.lock
+
 pm2 reload ecosystem.config.js --env production
