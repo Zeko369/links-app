@@ -7,7 +7,7 @@ import getLinks from "app/queries/getLinks"
 import useKeyPress from "app/hooks/useKeyPress"
 import { useDebounce } from "app/hooks/useDebounce"
 
-const ITEMS_PER_PAGE = 1
+const ITEMS_PER_PAGE = 30
 
 const Links: React.FC = () => {
   const router = useRouter()
