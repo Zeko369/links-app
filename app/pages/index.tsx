@@ -1,36 +1,57 @@
-import React, { useEffect, Suspense } from "react"
+import React, { useEffect, Suspense, useState } from "react"
 import { useRouter, BlitzPage, useRouterQuery, usePaginatedQuery } from "blitz"
 import { List, ListItem, Heading, Stack, Flex, Button, Spinner, Input } from "@chakra-ui/core"
 import { Link } from "chakra-next-link"
 
 import getLinks from "app/queries/getLinks"
 import useKeyPress from "app/hooks/useKeyPress"
+import { useDebounce } from "app/hooks/useDebounce"
 
-const ITEMS_PER_PAGE = 3
+const ITEMS_PER_PAGE = 1
 
 const Links: React.FC = () => {
   const router = useRouter()
-  const { page = 0, search = undefined } = useRouterQuery()
+  const [searchVal, setSearchVal] = useState<string | undefined>()
+  const { page = 0, q = undefined } = useRouterQuery()
   const [{ links, hasMore, count }] = usePaginatedQuery(getLinks, {
     skip: ITEMS_PER_PAGE * Number(page),
     take: ITEMS_PER_PAGE,
-    search: Array.isArray(search) ? search[0] : search,
+    search: Array.isArray(q) ? q[0] : q,
   })
 
-  const goToPreviousPage = () => router.push({ query: { page: Number(page) - 1 } })
-  const goToNextPage = () => router.push({ query: { page: Number(page) + 1 } })
+  const goToPreviousPage = () => router.push({ pathname: "/", query: { page: Number(page) - 1 } })
+  const goToNextPage = () => router.push({ pathname: "/", query: { page: Number(page) + 1 } })
+
+  const debouncedSearchVal = useDebounce(searchVal, 150)
+
+  useEffect(() => {
+    if (debouncedSearchVal !== q) {
+      router.push({
+        pathname: "/",
+        query: { page: Number(page), q: debouncedSearchVal },
+      })
+    }
+  }, [debouncedSearchVal, page, router, q])
 
   return (
     <>
       <Flex justify="space-between" alignItems="center" mt="2">
         <Heading>Links</Heading>
-        <Input maxW="400px" w="70%" placeholder="Search..." />
+        <Input
+          maxW="400px"
+          w="70%"
+          placeholder="Search..."
+          onChange={(e) => setSearchVal(e.target.value)}
+          value={searchVal}
+        />
       </Flex>
-      <Heading size="sm">{count} links</Heading>
+      <Heading size="sm">
+        {count} links {Number(page) !== 0 && `On page ${page}`}
+      </Heading>
       {links.length > 0 ? (
         <Stack mt="2">
           <Stack isInline>
-            <Button isDisabled={page === 0} onClick={goToPreviousPage}>
+            <Button isDisabled={Number(page) === 0} onClick={goToPreviousPage}>
               Previous
             </Button>
             <Button isDisabled={!hasMore} onClick={goToNextPage}>
