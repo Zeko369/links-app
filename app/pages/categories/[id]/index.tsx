@@ -24,7 +24,7 @@ const ShowCategory: React.FC<ServerProps> = ({ category }) => {
       <List mt={3} styleType="disc">
         {category.links.map((link) => (
           <ListItem>
-            <Link href={"/links/[id]"} as={`/links/${link.id}`}>
+            <Link href={"/links/[id]"} nextAs={`/links/${link.id}`}>
               {link.name}
             </Link>
           </ListItem>

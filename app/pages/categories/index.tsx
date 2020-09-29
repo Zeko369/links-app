@@ -33,10 +33,10 @@ const Categories: React.FC<ServerProps> = ({ categories }) => {
         {categories.length > 0 ? (
           categories.map((category) => (
             <ListItem key={category.id} py={1}>
-              <Link href="/categories/[id]" as={`/categories/${category.id}`}>
+              <Link href="/categories/[id]" nextAs={`/categories/${category.id}`}>
                 {category.name}
               </Link>{" "}
-              <Link href="/categories/[id]/edit" as={`/categories/${category.id}/edit`}>
+              <Link href="/categories/[id]/edit" nextAs={`/categories/${category.id}/edit`}>
                 Edit
               </Link>
             </ListItem>

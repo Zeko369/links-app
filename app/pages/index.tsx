@@ -61,7 +61,7 @@ const Links: React.FC = () => {
           <List styleType="circle">
             {links.map((link) => (
               <ListItem key={link.id} py={1}>
-                <Link href={`/links/[id]`} as={`/links/${link.id}`} wordBreak="break-all">
+                <Link href={`/links/[id]`} nextAs={`/links/${link.id}`} wordBreak="break-all">
                   {link.name}
                 </Link>{" "}
                 -&gt;{" "}
