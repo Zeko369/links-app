@@ -14,9 +14,9 @@ const getLinks = async ({ where, orderBy, take, skip, search }: GetLinkInput) =>
     where: {
       ...where,
       OR: [
-        { description: { contains: search } },
-        { name: { contains: search } },
-        { url: { contains: search } },
+        { description: { contains: search, mode: "insensitive" } },
+        { name: { contains: search, mode: "insensitive" } },
+        { url: { contains: search, mode: "insensitive" } },
       ],
     },
     take,
