@@ -28,20 +28,21 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-syntax-typescript": "7.10.4",
     "@chakra-ui/core": "0.7.0",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
     "@prisma/cli": "2.7.1",
     "@prisma/client": "2.7.1",
-    "blitz": "^0.15.3",
+    "blitz": "^0.23.2",
     "chakra-next-link": "0.0.5",
     "cheerio": "1.0.0-rc.3",
     "cors": "2.8.5",
     "emotion-theming": "10.0.27",
     "isomorphic-fetch": "2.2.1",
-    "next": "9.4.4",
-    "react": "0.0.0-experimental-33c3af284",
-    "react-dom": "0.0.0-experimental-33c3af284",
+    "next": "^9.5.3",
+    "react": "0.0.0-experimental-7f28234f8",
+    "react-dom": "0.0.0-experimental-7f28234f8",
     "react-hook-form": "5.7.2"
   },
   "devDependencies": {
