@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense, useState } from "react"
 import { useRouter, BlitzPage, useRouterQuery, usePaginatedQuery } from "blitz"
-import { List, ListItem, Heading, Stack, Flex, Button, Spinner, Input } from "@chakra-ui/core"
-import { Link } from "chakra-next-link"
+import { List, ListItem, Heading, Stack, Flex, Button, Spinner, Input, Box } from "@chakra-ui/core"
+import { Link, LinkButton } from "chakra-next-link"
 
 import getLinks from "app/queries/getLinks"
 import useKeyPress from "app/hooks/useKeyPress"
@@ -37,13 +37,12 @@ const Links: React.FC = () => {
     <>
       <Flex justify="space-between" alignItems="center" mt="2">
         <Heading>Links</Heading>
-        <Input
-          maxW="400px"
-          w="70%"
-          placeholder="Search..."
-          onChange={(e) => setSearchVal(e.target.value)}
-          value={searchVal}
-        />
+        <Stack isInline maxW="500px" w="70%">
+          <Input placeholder="Search..." onChange={(e) => setSearchVal(e.target.value)} value={searchVal} />
+          <LinkButton href="/links/add" variantColor="green">
+            New link
+          </LinkButton>
+        </Stack>
       </Flex>
       <Heading size="sm">
         {count} links {Number(page) !== 0 && `On page ${page}`}
