@@ -1,6 +1,6 @@
 import React, { useEffect, Suspense, useState } from "react"
 import { useRouter, BlitzPage, useRouterQuery, usePaginatedQuery } from "blitz"
-import { List, ListItem, Heading, Stack, Flex, Button, Spinner, Input, Box } from "@chakra-ui/core"
+import { List, ListItem, Heading, Stack, Flex, Button, Spinner, Input } from "@chakra-ui/core"
 import { Link, LinkButton } from "chakra-next-link"
 
 import getLinks from "app/queries/getLinks"
